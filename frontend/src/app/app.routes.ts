@@ -9,6 +9,7 @@ export const routes: Routes = [
     component: Layout,
     children: [
       { path: '', component: Main},
+      { path: '', loadChildren:() => import('./views/user/user-module').then(m => m.UserModule)},
     ]
   }
 ];

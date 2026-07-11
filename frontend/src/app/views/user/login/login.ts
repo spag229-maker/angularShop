@@ -60,7 +60,7 @@ export class Login {
             },
             error: (errorResponse: HttpErrorResponse) => {
               if (errorResponse.error && errorResponse.error.message) {
-this._snackBar.open(errorResponse.error.message);
+                this._snackBar.open(errorResponse.error.message);
               } else {
                 this._snackBar.open('Ошибка авторизации');
               }

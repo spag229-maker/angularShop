@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CategoryType } from '../../../../types/categoty.type';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth';
 import { MatMenuItem } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +17,11 @@ export class Header {
   isLogged: boolean = false;
   @Input() categories: CategoryType[] = [];
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private _snackBar: MatSnackBar,
+    private router: Router,
+  ) {
     this.isLogged = this.authService.getIsLoggedIn();
   }
 
@@ -26,7 +32,21 @@ export class Header {
   }
 
   logout(): void {
+    this.authService.logout().subscribe({
+      next: () => {
+        this.doLogout();
+      },
+      error: () => {
+        this.doLogout();
+      }
+    });
+  }
 
+  doLogout(): void {
+    this.authService.removeTokens();
+    this.authService.userId = null;
+    this._snackBar.open('Вы вышли из системы');
+    this.router.navigate(['/']);
   }
 
 }

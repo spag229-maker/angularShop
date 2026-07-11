@@ -2,12 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing-module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    LoginComponents,
-    SignupComponent
-  ],
-  imports: [CommonModule, UserRoutingModule],
+  declarations: [LoginComponent, SignupComponent],
+  imports: [CommonModule, ReactiveFormsModule, UserRoutingModule],
 })
 export class UserModule {}

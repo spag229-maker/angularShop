@@ -47,7 +47,7 @@ export class Signup {
         }
 
         if (error != null) {
-          rhis.snackBar.open(error);
+          this.snackBar.open(error);
           throw  new Error(error);
         }
 

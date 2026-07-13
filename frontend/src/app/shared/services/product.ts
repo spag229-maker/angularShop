@@ -2,13 +2,13 @@ import { Service } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CategoryType } from '../../../types/categoty.type';
+import * as url from 'node:url';
 
 @Service()
-export class Category {
+export class Product {
   constructor(private http: HttpClient) {}
 
-    getCategories(): Observable<CategoryType[]> {
-      return this.http.get<CategoryType[]>(environment.api + 'categories');
-    }
-
+  getBestProducts(): Observable<CategoryType[]> {
+    return this.http.get<CategoryType[]>(enviroment.api + 'products/best');
+  }
 }

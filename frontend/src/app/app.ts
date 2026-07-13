@@ -7,6 +7,7 @@ import {
   MatSnackBar,
   MatSnackBarModule,
 } from '@angular/material/snack-bar';
+import { SharedModule } from './shared/shared-module';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ import {
     MatSnackBarModule,
     RouterOutlet,
     MatSnackBarModule,
+    SharedModule,
   ],
   providers: [{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } }],
   templateUrl: './app.html',

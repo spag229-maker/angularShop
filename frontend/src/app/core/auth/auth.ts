@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { Observable, Subject, throwError } from 'rxjs';
 import { DefaultResponseType } from '../../../types/default-response.type';
 import { HttpClient } from '@angular/common/http';
-import { enviroments } from '../../../environments/enviroments';
+import { environments } from '../../../environments/enviroments';
 
 @Service({
   providedIn: 'root',

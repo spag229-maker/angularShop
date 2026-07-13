@@ -8,6 +8,7 @@ import {
   MatSnackBarModule,
 } from '@angular/material/snack-bar';
 import { SharedModule } from './shared/shared-module';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ import { SharedModule } from './shared/shared-module';
     HttpClientModule,
     MatSnackBarModule,
     RouterOutlet,
+    CarouselModule,
     MatSnackBarModule,
     SharedModule,
   ],

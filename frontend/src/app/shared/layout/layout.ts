@@ -3,6 +3,7 @@ import { Header } from './header/header';
 import { Footer } from './footer/footer';
 import { RouterOutlet } from '@angular/router';
 import { CategoryType } from '../../../types/categoty.type';
+import { CategoryWithTypeType } from '../../../types/category-with-type.type';
 
 @Component({
   selector: 'app-layout',
@@ -10,13 +11,16 @@ import { CategoryType } from '../../../types/categoty.type';
   templateUrl: './layout.html',
 })
 export class Layout {
-  categories: CategoryType[] = [];
+  categories: CategoryWithTypeType[] = [];
 
   constructor(private categoryService: CategoryService) {}
 
   ngOnInit() {
-    this.categoryService.getCategories().subscribe((categories: CategoryType[]) => {
-      this.categories = categories;
+    this.categoryService.getCategoriesWithTypes()
+      .subscribe((categories: CategoryWithTypeType[]) => {
+      this.categories = categories.map(item => {
+        return Onject.assign({typesUrl: item.map(item => item.url)}, item);
+      });
     });
   }
 }

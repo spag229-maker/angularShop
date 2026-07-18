@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CategoryType } from '../../../../types/categoty.type';
 import {RouterLink} from "@angular/router";
+import { CategoryWithTypeType } from '../../../../types/category-with-type.type';
 
 @Component({
   selector: 'app-footer',
@@ -9,5 +10,5 @@ import {RouterLink} from "@angular/router";
   styleUrl: './footer.scss',
 })
 export class Footer {
-  @Input() categories: CategoryType[] = [];
+  @Input() categories: CategoryWithTypeType[] = [];
 }

@@ -1,13 +1,12 @@
 @import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/variables";
 
 .catalog {
   padding: 100px 0 100px 0;
 
   .container {
     .catalog-title {
-      font-family: 'Lora', sans-serif;
-      font-weight: 400;
-      font-size: 36px;
+      @include head-lora-36;
       color: $green-text-color;
       margin-left: 317px;
       margin-bottom: 33px;
@@ -46,9 +45,11 @@
 
     .catalog-sorting {
       width: 257px;
+      min-width: 190px;
       box-sizing: border-box;
       position: relative;
       font-size: 16px;
+      cursor: pointer;
 
       .catalog-sorting-head{
         align-items: center;
@@ -87,8 +88,10 @@
         }
       }
       &.open {
+        width: 257px;
+        min-width: 257px;
         .catalog-sorting-head {
-           color: #000000;
+          color: #000000;
           background-color: #EBEBEB;
           border-radius: 5px 5px 0 0;
           padding-right: 23px ;

@@ -1,9 +1,74 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, RouterLink} from "@angular/router";
+import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { NgForOf, NgIf } from '@angular/common';
+import { ProductCard } from '../../../shared/components/product-card/product-card';
+import { ProductType } from '../../../../types/product.type';
+import { CountSelector } from '../../../shared/components/count-selector/count-selector';
 
 @Component({
   selector: 'app-detail',
-  imports: [],
+  imports: [RouterLink, CarouselModule, NgForOf, ProductCard, NgIf, CountSelector],
   templateUrl: './detail.html',
-  styleUrl: './detail.css',
+  styleUrl: './detail.scss',
 })
-export class Detail {}
+export class Detail {
+
+
+  count: number = 1;
+  recommendedProducts: ProductType[] = [];
+  product!: ProductType;
+  serverStaticPath = environment.serverStaticPath;
+
+  customOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    margin: 24,
+    dots: false,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1,
+      },
+      400: {
+        items: 2,
+      },
+      740: {
+        items: 3,
+      },
+      940: {
+        items: 4,
+      },
+    },
+    nav: false,
+  };
+
+  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.activatedRoute.params.subscribe(params => {
+      this.productService.getProduct(params['url']).subscribe((ProductType) => {
+        this.product = data;
+      })
+    })
+
+
+
+    this.productService.getBestProducts()
+      .subscribe(data: ProductType[]) => {
+      this.recommendedProducts = data;
+    }
+  }
+
+  updateCount(value: number) {
+    this.count = value;
+  }
+
+  addToCart(count: number) {
+    alert('добавлено' + count);
+  }
+
+}

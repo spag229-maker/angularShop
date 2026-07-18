@@ -13,9 +13,16 @@ export class Product {
     return this.http.get<CategoryType[]>(enviroment.api + 'products/best');
   }
 
-  getProducts(): Observable<{totalCount: number, pages: number, items:ProductType[]}> {
+  getProducts(params : ActiveParamsType): Observable<{totalCount: number, pages: number, items:ProductType[]}> {
     return this.http.get<{ totalCount: number; pages: number; items: ProductType[] }>(
-      enviroment.api + 'products/best',
+      enviroment.api + 'products/best', {
+        params:params
+      }
     );
+  }
+
+  getProduct(url: string): Observable<ProductType> {
+    return this.http.get<ProductType>(
+      enviroment.api + 'products/' + url);
   }
 }

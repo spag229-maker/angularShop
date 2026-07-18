@@ -6,6 +6,7 @@ import { MatMenuItem } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CategoryWithTypeType } from '../../../../types/category-with-type.type';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class Header {
   isLogged: boolean = false;
-  @Input() categories: CategoryType[] = [];
+  @Input() categories: CategoryWithTypeType[] = [];
 
   constructor(
     private authService: AuthService,

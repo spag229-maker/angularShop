@@ -1,11 +1,11 @@
-import { Service } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Injectable } from '@angular/core';
 import { Observable, Subject, throwError } from 'rxjs';
 import { DefaultResponseType } from '../../../types/default-response.type';
+import { LoginResponseType } from '../../../types/login-response.type';
 import { HttpClient } from '@angular/common/http';
 import { environments } from '../../../environments/enviroments';
 
-@Service({
+@Injectable({
   providedIn: 'root',
 })
 export class AuthService {
@@ -24,8 +24,8 @@ export class AuthService {
     email: string,
     password: string,
     rememberMe: boolean,
-  ): Observable<DefaultResponseType | loginResponseType> {
-    return this.https.post<DefaultResponseType | loginResponseType>(enviroments.api + 'login', {
+  ): Observable<DefaultResponseType | LoginResponseType> {
+    return this.http.post<DefaultResponseType | LoginResponseType>(environments.api + 'login', {
       email,
       password,
       rememberMe,
@@ -36,22 +36,22 @@ export class AuthService {
     email: string,
     password: string,
     passwordRepeat: string,
-  ): Observable<DefaultResponseType | loginResponseType> {
-    return this.https.post<DefaultResponseType | loginResponseType>(enviroments.api + 'signup', {
+  ): Observable<DefaultResponseType | LoginResponseType> {
+    return this.http.post<DefaultResponseType | LoginResponseType>(environments.api + 'signup', {
       email,
       password,
       passwordRepeat,
     });
   }
 
-  logout(email: string, password: string, rememberMe: boolean): Observable<DefaultResponseType> {
+  logout(): Observable<DefaultResponseType> {
     const tokens = this.getTokens();
     if (tokens && tokens.refreshToken) {
-      return this.https.post<DefaultResponseType>(enviroments.api + 'logout', {
+      return this.http.post<DefaultResponseType>(environments.api + 'logout', {
         refreshToken: tokens.refreshToken,
       });
     }
-    throw throwError(() => 'Can not find token');
+    return throwError(() => 'Can not find token');
   }
 
   public getIsLoggedIn() {
@@ -72,9 +72,9 @@ export class AuthService {
     this.isLogged$.next(false);
   }
 
-  public getTokens(): { accesToken: string | null; refreshToken: string | null } {
+  public getTokens(): { accessToken: string | null; refreshToken: string | null } {
     return {
-      accesToken: localStorage.getItem(this.accessTokenKey),
+      accessToken: localStorage.getItem(this.accessTokenKey),
       refreshToken: localStorage.getItem(this.refreshTokenKey),
     };
   }

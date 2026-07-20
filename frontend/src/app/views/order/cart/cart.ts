@@ -4,6 +4,8 @@ import { RouterLink } from '@angular/router';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { NgForOf } from '@angular/common';
 import { ProductCard } from '../../../shared/components/product-card/product-card';
+import { Product } from '../../../shared/services/product';
+import { ProductType } from '../../../../types/product.type';
 
 @Component({
   selector: 'app-cart',
@@ -13,7 +15,7 @@ import { ProductCard } from '../../../shared/components/product-card/product-car
 })
 export class Cart implements OnInit {
 
-  constructor(private productService: ProductServise) {
+  constructor(private productService: Product) {
   }
 
   extraProducts: ProductType[] = [];
@@ -46,9 +48,9 @@ export class Cart implements OnInit {
 
   ngOnInit() {
     this.productService.getBestProducts()
-      .subscribe(ProductType[]) => {
+      .subscribe((data: ProductType[]) => {
       this.extraProducts = data;
-    }
+    });
   }
 
 }

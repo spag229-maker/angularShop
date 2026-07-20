@@ -1,4 +1,4 @@
-import { Input, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PasswordRepeat } from './directive/password-repeat';
 import { RouterModule } from '@angular/router';
@@ -8,13 +8,15 @@ import { CategoryFilter } from './components/category-filter/category-filter';
 import { CountSelector } from './components/count-selector/count-selector';
 
 @NgModule({
-  declarations: [
-    PasswordRepeatDirective,
-    ProductCardComponent,
-    CategoryFilterComponent,
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    PasswordRepeat,
+    ProductCard,
+    CategoryFilter,
     CountSelector,
   ],
-  imports: [CommonModule, RouterModule, FormsModule],
-  exports: [PasswordRepeatDirective, ProductCardComponent, CategoryFilterComponent, CountSelector],
+  exports: [PasswordRepeat, ProductCard, CategoryFilter, CountSelector],
 })
 export class SharedModule {}

@@ -68,30 +68,39 @@ footer.footer {
           a {
             margin-right: 12px;
           }
+
         }
 
-        &.footer-contacts {
-          max-width: 253px;
+        .footer-payment {
+          .payment-item {
+            background-size: cover;
+            background-position: center;
+            height: 82px;
+          }
+        }
+      }
 
-          .footer-contact {
-            margin-bottom: 15px;
+      &.footer-contacts {
+        max-width: 253px;
 
-            &:last-child {
-              margin-bottom: 0;
-            }
+        .footer-contact {
+          margin-bottom: 15px;
 
-            .footer-contact-head {
-              font-family: Montserrat, sans-serif;
-              font-size: 16px;
-              font-weight: 500;
-              color: $gray-text-color;
-              margin-bottom: 6px;
-            }
+          &:last-child {
+            margin-bottom: 0;
+          }
 
-            .footer-contact-info {
-              font-size: 16px;
-              color: $gray-text-color;
-            }
+          .footer-contact-head {
+            font-family: Montserrat, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: $gray-text-color;
+            margin-bottom: 6px;
+          }
+
+          .footer-contact-info {
+            font-size: 16px;
+            color: $gray-text-color;
           }
         }
       }

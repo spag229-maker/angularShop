@@ -12,7 +12,7 @@ export class CountSelector {
 
   @Output() onCountChange = new EventEmitter<number>();
 
-  countChange(value: number) {
+  countChange() {
     this.onCountChange.emit(this.count);
   }
 

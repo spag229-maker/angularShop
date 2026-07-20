@@ -1,3 +1,4 @@
 export type AppliedFilterType = {
   name: string;
-  url: string;
+  urlParam: string;
+};

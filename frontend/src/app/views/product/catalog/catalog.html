@@ -5,7 +5,7 @@
     <div class="catalog-title">Каталог</div>
 
     <div class="catalog-head">
-      <div class="catalog-applied-filters" *ngFor="let appliedFilter of appliedFilters">
+      <div class="catalog-applied-filters" *ngFor="let appliedFilter of appliedFilter">
 
         <div class="catalog-applied-filter">
           <span>{{appliedFilter.name}}</span>
@@ -32,7 +32,7 @@
           <div class="catalog-sorting-item"
                [class.active]="this.activeParams.sort ? this.activeParams.sort === sortingOption.value : false"
                (click)="sort(sortingOption.value)"
-               *ngFor="let sortingOptions of sortingOptions">{{sortingOption.name }}</div>
+               *ngFor="let sortingOption of sortingOptions">{{sortingOption.name }}</div>
         </div>
       </div>
     </div>
@@ -50,7 +50,7 @@
     </div>
 
     <div class="pagination" *ngIf="pages.length > 1">
-      <div class="pagination-arrow" (click)="openPrevPage()
+      <div class="pagination-arrow" (click)="openPrevPage()"
       [class.disabled]="activeParams.page ? activeParams.page === 1 : true"
       >
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,9 +65,9 @@
       <div class="pagination-pages">
         <a class="pagination-page" (click)="openPage(page)"
            [class.active]="this.activeParams.page ? this.activeParams.page === page: (page === 1)"
-           *ngFor="let pages of pages">{{page}}</a>
+           *ngFor="let page of pages">{{page}}</a>
       </div>
-      <div class="pagination-arrow" (click)="openNextPage()
+      <div class="pagination-arrow" (click)="openNextPage()"
            [class.disabled]="activeParams.page ? activeParams.page === pages.length : false">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path

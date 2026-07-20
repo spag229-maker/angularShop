@@ -4,6 +4,7 @@ import { Product } from '../../services/product';
 import { ProductType } from '../../../../types/product.type';
 import { NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { environments } from '../../../../environments/enviroments';
 
 @Component({
   selector: 'product-card',
@@ -13,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ProductCard {
   @Input() product!: ProductType;
-  serverStaticPath = environment.serverStaticPath;
+  serverStaticPath = environments.serverStaticPath;
   count: number = 1;
   @Input() isLight: boolean = false;
 

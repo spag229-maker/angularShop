@@ -1,24 +1,27 @@
-import { Service } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { CategoryType } from '../../../types/categoty.type';
 import { TypeType } from '../../../types/type.type';
 import { CategoryWithTypeType } from '../../../types/category-with-type.type';
+import { environments } from '../../../environments/enviroments';
 
-@Service()
+@Injectable({
+  providedIn: 'root',
+})
 export class Category {
   constructor(private http: HttpClient) {}
 
   getCategories(): Observable<CategoryType[]> {
-    return this.http.get<CategoryType[]>(environment.api + 'categories');
+    return this.http.get<CategoryType[]>(environments.api + 'categories');
   }
   getCategoriesWithTypes(): Observable<CategoryWithTypeType[]> {
     return this.http
-      .get<TypeType[]>(environment.api + 'types')
+      .get<TypeType[]>(environments.api + 'types')
       .pipe(map((items: TypeType[]) => {
         const array: CategoryWithTypeType[] = [];
 
-        item.forEach((item:TypeType) =>{
+        items.forEach((item: TypeType) => {
 
           const foundItem = array.find(arrayItem =>
             arrayItem.url === item.category.url);
@@ -42,7 +45,7 @@ export class Category {
                 }]
             });
           }
-        })
+        });
 
         return array;
       }));

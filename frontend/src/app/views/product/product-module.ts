@@ -8,7 +8,6 @@ import { SharedModule } from '../../shared/shared-module';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
-  declarations: [Catalog, Detail],
   imports: [CommonModule, ProductRoutingModule, CarouselModule, SharedModule],
 })
 export class ProductModule {}

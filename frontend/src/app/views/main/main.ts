@@ -66,7 +66,7 @@ export class Main {
     nav: false
   }
 
-  reviewws = [{
+  reviews = [{
     name: 'Ирина',
     image: 'review-avatar1.png',
     text : 'В ассортименте я встретила все комнатные растения, которые меня интересовали. Цены - лучшие в городе. Доставка - очень быстрая и с заботой о растениях. '
@@ -102,11 +102,11 @@ export class Main {
     }
   ]
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: Product) {}
 
   ngOnInit() {
-    this.productService.getBestProducts().subscribe((ProductType[]) => {
+    this.productService.getBestProducts().subscribe((data: ProductType[]) => {
       this.products = data;
-    })
+    });
   }
 }

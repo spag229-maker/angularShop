@@ -1,28 +1,30 @@
-import { Service } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CategoryType } from '../../../types/categoty.type';
-import * as url from 'node:url';
 import { ProductType } from '../../../types/product.type';
+import { ActiveParamsType } from '../../../types/active-params.type';
+import { environments } from '../../../environments/enviroments';
 
-@Service()
+@Injectable({
+  providedIn: 'root',
+})
 export class Product {
   constructor(private http: HttpClient) {}
 
-  getBestProducts(): Observable<CategoryType[]> {
-    return this.http.get<CategoryType[]>(enviroment.api + 'products/best');
+  getBestProducts(): Observable<ProductType[]> {
+    return this.http.get<ProductType[]>(environments.api + 'products/best');
   }
 
-  getProducts(params : ActiveParamsType): Observable<{totalCount: number, pages: number, items:ProductType[]}> {
+  getProducts(params: ActiveParamsType): Observable<{totalCount: number, pages: number, items: ProductType[]}> {
     return this.http.get<{ totalCount: number; pages: number; items: ProductType[] }>(
-      enviroment.api + 'products/best', {
-        params:params
+      environments.api + 'products', {
+        params: params as any
       }
     );
   }
 
   getProduct(url: string): Observable<ProductType> {
     return this.http.get<ProductType>(
-      enviroment.api + 'products/' + url);
+      environments.api + 'products/' + url);
   }
 }

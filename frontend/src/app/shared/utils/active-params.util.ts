@@ -1,15 +1,16 @@
 import { Params } from '@angular/router';
+import { ActiveParamsType } from '../../../types/active-params.type';
 
 export class ActiveParamsUtil {
   static processParams (params:  Params)   {
     const activeParams: ActiveParamsType = { types: [] };
 
     if (params.hasOwnProperty('types')) {
-      activeParams.types = Array.isArray(params['type']) ? params['types'] : params['type'];
+      activeParams.types = Array.isArray(params['types']) ? params['types'] : [params['types']];
     }
 
     if (params.hasOwnProperty('heightTo')) {
-      activeParams.heighTo = params['heightTo'];
+      activeParams.heightTo = params['heightTo'];
     }
 
     if (params.hasOwnProperty('heightFrom')) {

@@ -2,15 +2,16 @@ import { Component, Input } from '@angular/core';
 import { CategoryType } from '../../../../types/categoty.type';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth';
-import { MatMenuItem } from '@angular/material/menu';
+import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategoryWithTypeType } from '../../../../types/category-with-type.type';
+import { NgForOf, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, MatMenuItem, MatIcon],
+  imports: [RouterLink, MatMenu, MatMenuItem, MatMenuTrigger, MatIcon, NgIf, NgForOf],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })

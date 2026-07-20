@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
 import { ProductCard } from '../../../shared/components/product-card/product-card';
-import { HttpClient } from '@angular/common/http';
-import {debounceTime, Observable } from 'rxjs';
-import { NgForOf } from '@angular/common';
+import { debounceTime } from 'rxjs';
+import { NgForOf, NgIf } from '@angular/common';
 import { CategoryWithTypeType } from '../../../../types/category-with-type.type';
 import { CategoryFilter } from '../../../shared/components/category-filter/category-filter';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActiveParamsUtil } from '../../../shared/utils/active-params.util';
+import { ActiveParamsType } from '../../../../types/active-params.type';
 import { ProductType } from '../../../../types/product.type';
 import { AppliedFilterType } from '../../../../types/applied-filter.type';
+import { Product } from '../../../shared/services/product';
+import { Category } from '../../../shared/services/category';
 
 @Component({
   selector: 'app-catalog',
-  imports: [ProductCard, NgForOf, CategoryFilter],
+  imports: [ProductCard, NgForOf, NgIf, CategoryFilter],
   templateUrl: './catalog.html',
   styleUrl: './catalog.scss',
 })
@@ -31,8 +33,8 @@ export class Catalog {
   pages: number [] = [];
 
   constructor(
-    private productService: ProductService,
-    private categoryService: CategoryService,
+    private productService: Product,
+    private categoryService: Category,
     private activatedRoute: ActivatedRoute,
     private router: Router,
   ) {}
@@ -61,13 +63,13 @@ export class Catalog {
           }
         });
 
-        if (this.activeParams.heigtFrom) {
+        if (this.activeParams.heightFrom) {
           this.appliedFilter.push({
             name: 'Высота от' + this.activeParams.heightFrom + 'см',
             urlParam: 'heightFrom',
           });
         }
-        if (this.activeParams.heigtTo) {
+        if (this.activeParams.heightTo) {
           this.appliedFilter.push({
             name: 'Высота до' + this.activeParams.heightTo + 'см',
             urlParam: 'heightTo',
@@ -86,7 +88,7 @@ export class Catalog {
             urlParam: 'diameterTo',
           });
         }
-        this.productService.getProducts().subscribe((data) => {
+        this.productService.getProducts(this.activeParams).subscribe((data) => {
           this.pages = [];
           for (let i = 1; i <= data.pages; i++) {
             this.pages.push(i);
@@ -106,7 +108,7 @@ export class Catalog {
       appliedFilter.urlParam === 'diameterFrom' ||
       appliedFilter.urlParam === 'diameterTo'
     ) {
-      delete this.activeParams[appliedFilter.urlParam];
+      delete (this.activeParams as any)[appliedFilter.urlParam];
     } else {
       this.activeParams.types = this.activeParams.types.filter(
         (item) => item !== appliedFilter.urlParam,
@@ -129,30 +131,31 @@ export class Catalog {
     this.router.navigate(['/catalog'], {
       queryParams: this.activeParams,
     });
+  }
 
-    openPage(page: number) {
-      this.activeParams.page = page;
+  openPage(page: number) {
+    this.activeParams.page = page;
+    this.router.navigate(['/catalog'], {
+      queryParams: this.activeParams,
+    });
+  }
+
+  openPrevPage() {
+    if (this.activeParams.page && this.activeParams.page > 1) {
+      this.activeParams.page--;
       this.router.navigate(['/catalog'], {
         queryParams: this.activeParams,
       });
     }
+  }
 
-    openPrevPage( ) {
-      if ( thisthis.activeParams.page && this.activeParams.page > 1 ) {
-        this.activeParams.page--;
-        this.router.navigate(['/catalog'], {
-          queryParams: this.activeParams,
-        });
-      }
+  openNextPage() {
+    if (this.activeParams.page && this.activeParams.page < this.pages.length) {
+      this.activeParams.page++;
+      this.router.navigate(['/catalog'], {
+        queryParams: this.activeParams,
+      });
     }
-    openNextPage( ) {
-      if ( thisthis.activeParams.page && this.activeParams.page < this.pages.length ) {
-        this.activeParams.page++;
-        this.router.navigate(['/catalog'], {
-          queryParams: this.activeParams,
-        });
-    }
-
   }
 
 }

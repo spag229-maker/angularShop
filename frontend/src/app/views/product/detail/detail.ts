@@ -5,6 +5,8 @@ import { NgForOf, NgIf } from '@angular/common';
 import { ProductCard } from '../../../shared/components/product-card/product-card';
 import { ProductType } from '../../../../types/product.type';
 import { CountSelector } from '../../../shared/components/count-selector/count-selector';
+import { Product } from '../../../shared/services/product';
+import { environments } from '../../../../environments/enviroments';
 
 @Component({
   selector: 'app-detail',
@@ -18,7 +20,7 @@ export class Detail {
   count: number = 1;
   recommendedProducts: ProductType[] = [];
   product!: ProductType;
-  serverStaticPath = environment.serverStaticPath;
+  serverStaticPath = environments.serverStaticPath;
 
   customOptions: OwlOptions = {
     loop: true,
@@ -46,21 +48,19 @@ export class Detail {
     nav: false,
   };
 
-  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute) {}
+  constructor(private productService: Product, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      this.productService.getProduct(params['url']).subscribe((ProductType) => {
+      this.productService.getProduct(params['url']).subscribe((data: ProductType) => {
         this.product = data;
-      })
-    })
-
-
+      });
+    });
 
     this.productService.getBestProducts()
-      .subscribe(data: ProductType[]) => {
+      .subscribe((data: ProductType[]) => {
       this.recommendedProducts = data;
-    }
+    });
   }
 
   updateCount(value: number) {

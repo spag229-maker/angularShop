@@ -1,5 +1,5 @@
-<div class="product-card" *ngIf="product">
-  <div class="product-card-favorite">
+<div class="product-card" *ngIf="product" routerLink="isLight / ['product/' + product.url] : []" [class.is-light]="isLight">
+  <div class="product-card-favorite" *ngIf="!isLight">
 <!--    <span>-->
 <!--      <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">-->
 <!--        <path-->
@@ -24,7 +24,7 @@ url({{serverStaticPath + product.image}})">
   <div class="product-card-name">
     {{ product.name }}
   </div>
-  <div class="product-card-info">
+  <div class="product-card-info" *ngIf="!isLight">
     <div class="product-card-price">
       {{ product.price }} BYN
     </div>
@@ -32,7 +32,7 @@ url({{serverStaticPath + product.image}})">
       <button class="button">В корзину</button>
     </div>
   </div>
-  <div class="product-card-extra">
+  <div class="product-card-extra" *ngIf="!isLight">
     <count-selector></count-selector>
     <a [routerLink]='/product/' + product.url class="product-card-detail">
       <svg width="18" height="4" viewBox="0 0 18 4" fill="none" xmlns="http://www.w3.org/2000/svg">

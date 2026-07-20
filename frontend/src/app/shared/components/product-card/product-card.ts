@@ -15,6 +15,7 @@ export class ProductCard {
   @Input() product!: ProductType;
   serverStaticPath = environment.serverStaticPath;
   count: number = 1;
+  @Input() isLight: boolean = false;
 
   constructor() {}
 }

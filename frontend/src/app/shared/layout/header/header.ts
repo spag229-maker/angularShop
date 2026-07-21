@@ -8,6 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategoryWithTypeType } from '../../../../types/category-with-type.type';
 import { NgForOf, NgIf } from '@angular/common';
+import { CartService } from '../../services/cart';
 
 @Component({
   selector: 'app-header',
@@ -17,12 +18,14 @@ import { NgForOf, NgIf } from '@angular/common';
 })
 export class Header {
   isLogged: boolean = false;
+  cartCount: number = 0;
   @Input() categories: CategoryWithTypeType[] = [];
 
   constructor(
     private authService: AuthService,
     private _snackBar: MatSnackBar,
     private router: Router,
+    private cartService: CartService,
   ) {
     this.isLogged = this.authService.getIsLoggedIn();
   }
@@ -30,6 +33,10 @@ export class Header {
   ngOnInit() {
     this.authService.isLogged$.subscribe((isLoggedIn: boolean) => {
       this.isLogged = isLoggedIn;
+    });
+
+    this.cartService.cartCount$.subscribe((count: number) => {
+      this.cartCount = count;
     });
   }
 

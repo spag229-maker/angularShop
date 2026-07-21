@@ -5,6 +5,8 @@ import { ProductType } from '../../../../types/product.type';
 import { NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { environments } from '../../../../environments/enviroments';
+import { CartService } from '../../services/cart';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'product-card',
@@ -18,5 +20,14 @@ export class ProductCard {
   count: number = 1;
   @Input() isLight: boolean = false;
 
-  constructor() {}
+  constructor(
+    private cartService: CartService,
+    private _snackBar: MatSnackBar,
+  ) {}
+
+  addToCart(): void {
+    this.cartService.addToCart(this.product.id, 1).subscribe(() => {
+      this._snackBar.open('Товар добавлен в корзину');
+    });
+  }
 }

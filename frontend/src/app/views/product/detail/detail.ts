@@ -7,6 +7,8 @@ import { ProductType } from '../../../../types/product.type';
 import { CountSelector } from '../../../shared/components/count-selector/count-selector';
 import { Product } from '../../../shared/services/product';
 import { environments } from '../../../../environments/enviroments';
+import { CartService } from '../../../shared/services/cart';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-detail',
@@ -48,7 +50,12 @@ export class Detail {
     nav: false,
   };
 
-  constructor(private productService: Product, private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private productService: Product,
+    private activatedRoute: ActivatedRoute,
+    private cartService: CartService,
+    private _snackBar: MatSnackBar,
+  ) {}
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
@@ -67,8 +74,10 @@ export class Detail {
     this.count = value;
   }
 
-  addToCart(count: number) {
-    alert('добавлено' + count);
+  addToCart(): void {
+    this.cartService.addToCart(this.product.id, this.count).subscribe(() => {
+      this._snackBar.open('Товар добавлен в корзину');
+    });
   }
 
 }

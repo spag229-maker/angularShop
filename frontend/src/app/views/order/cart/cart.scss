@@ -16,6 +16,11 @@
       margin-top: 35px;
       margin-bottom: 160px;
 
+      .cart-empty {
+        font-size: 18px;
+        color: $gray-text-color;
+      }
+
       .cart-products {
         width: 678px;
 
